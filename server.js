@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://your-actual-netlify-url.netlify.app', // Replace with your actual Netlify URL
+    'https://study-backend-mlvp.onrender.com', // Your Render backend URL
     process.env.FRONTEND_URL
   ],
   credentials: true
@@ -68,6 +68,8 @@ if (!fs.existsSync(uploadsDir)) {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📊 Environment: ${process.env.NODE_ENV}`);
+  console.log(`🔗 MongoDB URI: ${process.env.MONGODB_URI ? 'Set' : 'Not set'}`);
 });
