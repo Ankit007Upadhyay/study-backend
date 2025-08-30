@@ -14,6 +14,7 @@ const corsOptions = {
   origin: [
     'http://localhost:3000',
     'https://study-backend-mlvp.onrender.com', // Your Render backend URL
+    'https://study-platform-by-ankit-for-beu.netlify.app', // Your Netlify frontend URL
     process.env.FRONTEND_URL
   ],
   credentials: true
