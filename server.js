@@ -13,7 +13,7 @@ const app = express();
 const corsOptions = {
   origin: [
     'http://localhost:3000',
-    'https://your-netlify-app.netlify.app', // Replace with your actual Netlify URL
+    'https://your-actual-netlify-url.netlify.app', // Replace with your actual Netlify URL
     process.env.FRONTEND_URL
   ],
   credentials: true
@@ -21,6 +21,34 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Health check route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Study Notes Backend API is running!', 
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      auth: '/api/auth',
+      files: '/api/files'
+    }
+  });
+});
+
+// API info route
+app.get('/api', (req, res) => {
+  res.json({
+    message: 'Study Notes API',
+    version: '1.0.0',
+    endpoints: {
+      'POST /api/auth/register': 'Register new user',
+      'POST /api/auth/login': 'Login user',
+      'GET /api/files': 'Get user files',
+      'POST /api/files/upload': 'Upload file',
+      'DELETE /api/files/:id': 'Delete file'
+    }
+  });
+});
 
 // Routes
 app.use('/api/auth', authRoutes);
