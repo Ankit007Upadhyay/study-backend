@@ -25,7 +25,7 @@ const fileSchema = new mongoose.Schema({
   fileType: {
     type: String,
     required: true,
-    enum: ['Study Notes', 'Question Paper', 'Solution']
+    enum: ['Study Notes', 'Question Paper', 'Solution', 'Expert Solution']
   },
   filename: {
     type: String,
