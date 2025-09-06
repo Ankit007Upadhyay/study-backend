@@ -28,7 +28,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Health check endpoint
 app.get('/', (req, res) => {
-  res.json({ message: 'Study Notes Platform API is running!', status: 'healthy' });
+  res.json({ 
+    message: 'Study Notes Platform API is running!', 
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    version: '1.0.1'
+  });
 });
 
 // Socket.IO setup
