@@ -17,9 +17,7 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? true // Allow all origins in production for easier deployment
-    : ['http://localhost:3000'],
+  origin: true, // Allow all origins
   credentials: true
 }));
 app.use(express.json());
@@ -33,9 +31,7 @@ app.get('/', (req, res) => {
 // Socket.IO setup
 const io = socketIo(server, {
   cors: {
-    origin: process.env.NODE_ENV === 'production' 
-      ? true 
-      : ['http://localhost:3000'],
+    origin: true, // Allow all origins
     methods: ['GET', 'POST'],
     credentials: true
   },
