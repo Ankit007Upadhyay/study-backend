@@ -3,21 +3,28 @@ const Message = require('../models/Message');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-// Get all messages (with pagination)
+// Get all messages (with pagination) - only messages from last 24 hours
 router.get('/messages', auth, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 50;
     const skip = (page - 1) * limit;
 
-    const messages = await Message.find()
+    // Only get messages from last 24 hours
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const messages = await Message.find({
+      createdAt: { $gte: twentyFourHoursAgo }
+    })
       .populate('user', 'name role')
       .populate('replyTo', 'content userName')
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    const totalMessages = await Message.countDocuments();
+    const totalMessages = await Message.countDocuments({
+      createdAt: { $gte: twentyFourHoursAgo }
+    });
     const totalPages = Math.ceil(totalMessages / limit);
 
     res.json({

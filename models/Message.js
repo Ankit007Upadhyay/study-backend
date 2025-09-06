@@ -46,6 +46,9 @@ const messageSchema = new mongoose.Schema({
   timestamps: true
 });
 
+// TTL index to automatically delete messages after 24 hours
+messageSchema.index({ createdAt: 1 }, { expireAfterSeconds: 86400 }); // 24 hours
+
 // Index for efficient querying
 messageSchema.index({ createdAt: -1 });
 messageSchema.index({ user: 1 });

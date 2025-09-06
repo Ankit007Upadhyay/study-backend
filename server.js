@@ -91,8 +91,8 @@ io.on('connection', (socket) => {
 
   // Handle new message
   socket.on('sendMessage', (messageData) => {
-    // Broadcast the message to all connected clients
-    io.emit('newMessage', messageData);
+    // Broadcast the message to all connected clients except sender
+    socket.broadcast.emit('newMessage', messageData);
   });
 
   // Handle message edit
