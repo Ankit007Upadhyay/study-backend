@@ -1,6 +1,6 @@
 const express = require('express');
 const Message = require('../models/Message');
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 const router = express.Router();
 
 // Get all messages (with pagination) - only messages from last 24 hours
