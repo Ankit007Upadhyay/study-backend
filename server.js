@@ -147,6 +147,11 @@ app.use('/api/auth', authRoutes);
 app.use('/api/files', fileRoutes);
 app.use('/api/chat', chatRoutes);
 
+// Add a test route to verify API is working
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API routes are working', timestamp: new Date().toISOString() });
+});
+
 // MongoDB Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/study-notes-platform';
 
